@@ -9,38 +9,38 @@ const SaathiCards = ({ saathi }) => {
   const { handleDelete, handleEdit } = useMyContext();
 
   return (
-    <div className="cards">
-      <div className="edit-btn">
+    <div className="saathi_cards">
+      <div className="saathi_Edit_btns">
         <img
           src={editIcon}
           alt="editIcon.png"
-          id="edit-icon"
+          className="saathi_btn"
           onClick={() => handleEdit(saathi)}
         />
         <img
           src={deleteIcon}
           alt="deleteIcon.png"
-          id="delete-icon"
-          onClick={() => handleDelete(saathi._id)}
+          className="saathi_btn"
+          onClick={() => handleDelete("Saathi", "delete", "saathiKey", saathi)}
         />
       </div>
-      <img src={Saathi} alt="SaathiImg.png" id="Profile-icon" />
+      <img src={Saathi} alt="SaathiImg.png" id="saathi_img" />
       <h1>{saathi.name}</h1>
-      <div className="info">
-        <div className="info-content">
-          <h5>Work</h5>
+      <div className="saathi_info">
+        <div className="saathi-content">
+          <h5>Work:</h5>
           <p>{saathi.work}</p>
         </div>
-        <div className="info-content">
-          <h5>Contact</h5>
+        <div className="saathi-content">
+          <h5>Contact:</h5>
           <p>{saathi.contact}</p>
         </div>
-        <div className="info-content">
-          <h5>Location</h5>
+        <div className="saathi-content">
+          <h5>Location:</h5>
           <p>{saathi.landmark}</p>
         </div>
-        <div className="info-content">
-          <h5>Waqt</h5>
+        <div className="saathi-content">
+          <h5>Waqt:</h5>
           <p>{saathi.waqt}</p>
         </div>
       </div>

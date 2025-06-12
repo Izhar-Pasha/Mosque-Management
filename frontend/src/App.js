@@ -19,7 +19,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <MyProvider>
             <Routes>
-              <Route path="/auth" element={<Login />} />
+              <Route path="/" element={<Login />} />
               <Route element={<Navbar />}>
                 <Route path="/api/dashboard" element={<Dashboard />} />
                 <Route path="/api/saathi" element={<Saathi />} />

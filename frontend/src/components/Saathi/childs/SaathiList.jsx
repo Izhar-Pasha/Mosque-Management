@@ -6,11 +6,19 @@ import { useMyContext } from "../../../context/categoryContext.jsx";
 const SaathiList = () => {
   const { data } = useMyContext();
 
+  if (!Array.isArray(data.allSaathi)) {
+    return <p>Data is invalid</p>;
+  }
+
   return (
-    <div className="list-details">
-      {data?.map((saathi) => (
-        <SaathiCards key={saathi._id} saathi={saathi} />
-      ))}
+    <div className="saathi_list">
+      {data?.allSaathi?.length === 0 ? (
+        <p>No Saathi Found</p>
+      ) : (
+        data?.allSaathi.map((saathi) => (
+          <SaathiCards key={saathi._id} saathi={saathi} />
+        ))
+      )}
     </div>
   );
 };

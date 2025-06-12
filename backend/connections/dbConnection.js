@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-let mongoURI =
-  process.env.Mongo_URI ||
-  "mongodb+srv://mdizharpasha07:MasjideAbu@cluster0.3aigaq0.mongodb.net/?retryWrites=true";
+let mongoURI = process.env.Mongo_URI;
 
 const dbConnect = () => {
   mongoose

@@ -13,63 +13,69 @@ const StudentForm = ({ initialData = {}, onSubmit }) => {
       year: initialData.year || "",
       branch: initialData.branch || "",
       collegeName: initialData.collegeName || "",
-      contact: initialData.branch || "",
+      contact: initialData.contact || "",
       landmark: initialData.landmark || "",
       waqt: initialData.waqt || "",
     },
   });
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="text"
-          placeholder="Name"
-          className="inputField"
-          {...register("name")}
-        />
-        <input
-          type="text"
-          placeholder="Which Year"
-          className="inputField"
-          {...register("year")}
-        />
+    <div className="student_form">
+      <h1>{isEdit ? "Update Student" : "Create Student"}</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="student_form_content">
+        <div className="student-content">
+          <input
+            type="text"
+            placeholder="Name"
+            className="inputField"
+            {...register("name", { required: true })}
+          />
+          <input
+            type="text"
+            placeholder="Year"
+            className="inputField"
+            {...register("year", { required: true })}
+          />
 
-        <input
-          type="text"
-          placeholder="Which Branch"
-          className="inputField"
-          {...register("branch")}
-        />
-        <input
-          type="text"
-          placeholder="College Name"
-          className="inputField"
-          {...register("collegeName")}
-        />
-        <input
-          type="number"
-          placeholder="Contact Number"
-          className="inputField"
-          {...register("contact")}
-        />
-        <input
-          type="text"
-          placeholder="Landmark"
-          className="inputField"
-          {...register("landmark")}
-        />
-        <select {...register("waqt")}>
-          <option value="0">0</option>
-          <option value="3">3</option>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="40">40</option>
-          <option value="40">40</option>
-          <option value="Behroon">Behroon</option>
-        </select>
+          <input
+            type="text"
+            placeholder="Branch"
+            className="inputField"
+            {...register("branch", { required: true })}
+          />
+          <input
+            type="text"
+            placeholder="College Name"
+            className="inputField"
+            {...register("collegeName", { required: true })}
+          />
+          <input
+            type="number"
+            placeholder="Contact Number"
+            className="inputField"
+            {...register("contact", { required: true })}
+          />
+          <input
+            type="text"
+            placeholder="Landmark"
+            className="inputField"
+            {...register("landmark", { required: true })}
+          />
+          <select {...register("waqt", { required: true })}>
+            <option value="" disabled>
+              Select waqt
+            </option>
+            <option value="0">0</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="40">40</option>
+            <option value="40">40</option>
+            <option value="Behroon">Behroon</option>
+          </select>
+        </div>
 
-        <div className="btns">
+        <div className="student-btns">
           <button type="submit">
             {isEdit ? "Update Student" : "Create Student"}
           </button>

@@ -2,30 +2,48 @@ import axios from "axios";
 
 export const API = axios.create({
   baseURL: "http://localhost:3002",
+  withCredentials: true,
 });
 
 const saathiEndpoint = "/api/saathi";
 
+// GET REQ: GET ALL SAATHI
 export const getSaathi = async () => {
   try {
     const res = await API.get(saathiEndpoint);
-    return res;
+    return res.data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
+// POST REQ: CREATE THE SAATHI
 export const createSaathi = async (data) => {
-  const res = await API.post(saathiEndpoint, data);
-  return res.data;
+  try {
+    const res = await API.post(saathiEndpoint, data);
+    return res.data;
+  } catch (error) {}
 };
 
+// PUT REQ: UPDATE THE SAATHI
 export const updateSaathi = async ({ id, data }) => {
-  const res = await API.put(`${saathiEndpoint}/${id}`, data);
-  return res.data;
+  try {
+    const res = await API.put(`${saathiEndpoint}/${id}`, data);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
+// DELETE REQ: DELETE THE SAATHI
 export const deleteSaathi = async (id) => {
-  const res = await API.delete(`${saathiEndpoint}/${id}`);
-  return res.data;
+  try {
+    const res = await API.delete(`${saathiEndpoint}/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };

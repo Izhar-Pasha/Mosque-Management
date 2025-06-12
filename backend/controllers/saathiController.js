@@ -26,8 +26,18 @@ export const getSaathi = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-
     const skips = (page - 1) * limit;
+
+    const cacheKey = `Saathi:page=${page}&limit=${limit}`;
+    const cachedSaathi = await client.get(cacheKey);
+
+    if (cachedSaathi) {
+      console.log("Data is from Redis");
+      return res.status(200).json({
+        allSaathi: JSON.parse(cachedSaathi),
+        message: "Successfully fetched saathi (from cache)",
+      });
+    }
 
     const allSaathi = await Saathi.find().skip(skips).limit(limit);
 
@@ -35,9 +45,15 @@ export const getSaathi = async (req, res, next) => {
       throw new AppError("Failed to get saathi", 400);
     }
 
-    res.status(200).json({ allSaathi, message: "Successfully fetched saathi" });
+    await client.set(cacheKey, JSON.stringify(allSaathi), "EX", 10);
+
+    console.log("Data is from DB");
+    res.status(200).json({
+      allSaathi,
+      message: "Successfully fetched saathi",
+    });
   } catch (error) {
-    console.error(error);
+    console.error("error", error);
 
     next(error);
   }
@@ -63,7 +79,7 @@ export const searchSaathi = async (req, res, next) => {
       throw new AppError("Failed to get saathi", 400);
     }
 
-    await client.set(cacheKey, JSON.stringify(saathi), { EX: 600 });
+    await client.set(cacheKey, JSON.stringify(saathi), "EX", 600);
 
     console.log("Data from DB");
     res.status(200).json(saathi);

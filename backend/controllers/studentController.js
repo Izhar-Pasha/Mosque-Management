@@ -47,11 +47,25 @@ export const getStudents = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 10;
     const skips = (page - 1) * limit;
 
+    const cacheKey = `Student:page=${page}&limit=${limit}`;
+    const cachedStudent = await client.get(cacheKey);
+
+    if (cachedStudent) {
+      console.log("Data is from redis");
+      return res.status(200).json({
+        allStudents: JSON.parse(cachedStudent),
+        message: "Successfully fetched student (from cache)",
+      });
+    }
+
     const allStudents = await Student.find().skip(skips).limit(limit);
     if (!allStudents) {
       throw new AppError("Failed to get all students", 400);
     }
 
+    await client.set(cacheKey, JSON.stringify(allStudents), "EX", 10);
+
+    console.log("Data is from DB");
     res.status(200).json({ allStudents, message: "Fetched Successfully" });
   } catch (error) {
     next(error);

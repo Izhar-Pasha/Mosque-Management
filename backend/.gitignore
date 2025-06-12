@@ -1,3 +1,9 @@
-./config/.env
-./node_modules
-./test/controller
+# Environment files
+.env
+config/.env
+
+# Dependencies
+node_modules/
+
+# Test controllers
+test/controller/

@@ -73,7 +73,7 @@ export const login = async (req, res, next) => {
       httpOnly: true,
       secure: false,
       sameSite: "strict",
-      maxAge: 10 * 60 * 1000, //10 mins
+      maxAge: 20 * 60 * 1000, //20 mins
     });
 
     return res.status(200).json({ message: "Login Successfull" });

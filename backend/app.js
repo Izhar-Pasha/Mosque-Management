@@ -7,8 +7,9 @@ import saathiRouter from "./routes/saathi.routes.js";
 import professionalRouter from "./routes/professional.routes.js";
 import studentRouter from "./routes/student.routes.js";
 import dbConnect from "./connections/dbConnection.js";
-import "./connections/redisClient.js";
 import cookieParser from "cookie-parser";
+import statsRouter from "./routes/Stats.routes.js";
+import "./connections/redisClient.js";
 
 dotenv.config({ path: "./config/.env" });
 
@@ -17,8 +18,12 @@ const app = express();
 app.use(express.json());
 
 // Allow cross-origin requests from frontend domain
-app.use(cors());
-
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://192.168.149.226:3000"],
+    credentials: true,
+  })
+);
 // Cookies
 app.use(cookieParser());
 
@@ -27,6 +32,7 @@ dbConnect();
 
 // API Routes
 app.use("/", authRouter);
+app.use("/stats", statsRouter);
 app.use("/api/saathi", saathiRouter);
 app.use("/api/professional", professionalRouter);
 app.use("/api/student", studentRouter);

@@ -16,7 +16,6 @@ export const createProfessional = async (req, res, next) => {
       company,
       contact,
       landmark,
-      waqt,
     });
 
     if (!newProfessional) {
@@ -37,12 +36,26 @@ export const getProfessional = async (req, res, next) => {
 
     const skips = (page - 1) * limit;
 
+    const cacheKey = `AllProf:page=${page}&limit=${limit}`;
+    const cachedProfessional = await client.get(cacheKey);
+
+    if (cachedProfessional) {
+      console.log("Data is from redis");
+      return res.status(200).json({
+        allProfessional: JSON.parse(cachedProfessional),
+        message: "Successfully fetched professional from (cache)",
+      });
+    }
+
     const allProfessional = await Professional.find().skip(skips).limit(limit);
 
     if (!allProfessional) {
       throw new AppError("Failed to get professional", 400);
     }
 
+    await client.set(cacheKey, JSON.stringify(allProfessional), "EX", 10);
+
+    console.log("Data if from DB");
     res
       .status(200)
       .json({ allProfessional, message: "Successfully fetched professional" });
@@ -71,7 +84,7 @@ export const searchProfessional = async (req, res, next) => {
       throw new AppError("Failed to get professional", 400);
     }
 
-    await client.set(cacheKey, JSON.stringify(professional), { EX: 600 });
+    await client.set(cacheKey, JSON.stringify(professional), "EX", 10);
 
     console.log("Data from DB");
     res.status(200).json(professional);
@@ -111,6 +124,8 @@ export const updateProfessional = async (req, res, next) => {
 export const deleteProfessional = async (req, res, next) => {
   try {
     const { id } = req.params;
+
+    // console.log("data from frontend:", id);
 
     const Delete = await Professional.findByIdAndDelete(id);
 

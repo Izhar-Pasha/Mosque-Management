@@ -6,6 +6,7 @@ import { useMyContext } from "../../context/categoryContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logout } from "../api_calls/authAPI.js";
 import toast from "react-hot-toast";
+import { Outlet } from "react-router-dom";
 
 const Navbar = () => {
   const { setCategory, setOperation, setQuerykey } = useMyContext();
@@ -22,6 +23,8 @@ const Navbar = () => {
   };
 
   const handleNavClick = (category, key) => {
+    console.log("cat:", category, "key:", key);
+
     setCategory(category);
     setOperation("get");
     setQuerykey(key);
@@ -35,10 +38,12 @@ const Navbar = () => {
     onSuccess: () => {
       toast.success("Successfully logout");
       queryClient.invalidateQueries({ queryKey: ["Logout"] });
-      navigate("/auth");
+      navigate("/");
     },
     onError: (err) => {
-      toast.error("Unable to logout");
+      toast.error(
+        err.response?.data.message || err.message || "Something went wrong"
+      );
     },
   });
 
@@ -117,6 +122,7 @@ const Navbar = () => {
           </Link>
         </ul>
       </aside>
+      <Outlet />
     </>
   );
 };

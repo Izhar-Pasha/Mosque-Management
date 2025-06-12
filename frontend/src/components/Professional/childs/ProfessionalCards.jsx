@@ -8,42 +8,49 @@ const ProfessionalCards = ({ professional }) => {
   const { handleDelete, handleEdit } = useMyContext();
 
   return (
-    <div className="cards">
-      <div className="edit-btn">
+    <div className="Prof_cards">
+      <div className="Prof_Edit_btns">
         <img
           src={editIcon}
-          alt="editIcon.png"
-          id="edit-icon"
+          alt="Edit"
+          className="Prof_btn"
           onClick={() => handleEdit(professional)}
         />
         <img
           src={deleteIcon}
-          alt="deleteIcon.png"
-          id="delete-icon"
-          onClick={() => handleDelete(professional._id)}
+          alt="Delete"
+          className="Prof_btn"
+          onClick={() =>
+            handleDelete(
+              "Professional",
+              "delete",
+              "professionalKey",
+              professional
+            )
+          }
         />
       </div>
-      <img src={Professional} alt="ProfessionalImg.png" id="Profile-icon" />
+      <img src={Professional} alt="ProfessionalImg.png" id="Prof_img" />
       <h1>{professional.name}</h1>
-      <div className="info">
-        <div className="info-content">
-          <h5>Role</h5>
+      <div className="prof_info">
+        <div className="prof-content">
+          <h5>Role:</h5>
           <p>{professional.role}</p>
         </div>
-        <div className="info-content">
-          <h5>Company</h5>
+        <div className="prof-content">
+          <h5>Company:</h5>
           <p>{professional.company}</p>
         </div>
-        <div className="info-content">
-          <h5>Contact</h5>
+        <div className="prof-content">
+          <h5>Contact:</h5>
           <p>{professional.contact}</p>
         </div>
-        <div className="info-content">
-          <h5>Landmark</h5>
+        <div className="prof-content">
+          <h5>Landmark:</h5>
           <p>{professional.landmark}</p>
         </div>
-        <div className="info-content">
-          <h5>Waqt</h5>
+        <div className="prof-content">
+          <h5>Waqt:</h5>
           <p>{professional.waqt}</p>
         </div>
       </div>
