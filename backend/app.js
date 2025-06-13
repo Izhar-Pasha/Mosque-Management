@@ -20,7 +20,7 @@ app.use(express.json());
 // Allow cross-origin requests from frontend domain
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://192.168.149.226:3000"],
+    origin: ["http://localhost:3000", "https://mosque-management.vercel.app/"],
     credentials: true,
   })
 );
