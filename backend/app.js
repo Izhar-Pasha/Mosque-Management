@@ -8,7 +8,7 @@ import professionalRouter from "./routes/professional.routes.js";
 import studentRouter from "./routes/student.routes.js";
 import dbConnect from "./connections/dbConnection.js";
 import cookieParser from "cookie-parser";
-import statsRouter from "./routes/Stats.routes.js";
+import statsRouter from "./routes/stats.routes.js";
 import "./connections/redisClient.js";
 
 dotenv.config({ path: "./config/.env" });
