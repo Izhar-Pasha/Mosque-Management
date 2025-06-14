@@ -9,6 +9,7 @@ import Professional from "./components/Professional/Professional.jsx";
 import Student from "./components/Student/Student.jsx";
 import Login from "./components/Login/Login.jsx";
 import Dashboard from "./components/dashboard/Dashboard.jsx";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ function App() {
               </Route>
             </Routes>
             <Toaster />
+            <Analytics />
           </MyProvider>
         </QueryClientProvider>
       </ErrorBoundary>
