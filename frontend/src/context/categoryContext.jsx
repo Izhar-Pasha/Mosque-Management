@@ -33,7 +33,7 @@ export const MyProvider = ({ children }) => {
   // POST REQ: Dynamic Approach
   const CreateMember = useMutation({
     mutationFn: ({ data, category, operation }) => {
-      console.log("Mutation got:", data);
+      // console.log("Mutation got:", data);
       const fn = API_Map[category]?.[operation];
       if (!fn) throw new Error("Create function not found");
       return fn(data);
@@ -52,7 +52,7 @@ export const MyProvider = ({ children }) => {
   // PUT REQ: UPDATE Dynamically
   const UpdateMember = useMutation({
     mutationFn: ({ id, data, category, operation }) => {
-      console.log("Mutation got:", id, data);
+      // console.log("Mutation got:", id, data);
       const fn = API_Map[category]?.[operation];
       if (!fn) throw new Error("Update function not found");
       return fn({ id, data });
@@ -71,7 +71,7 @@ export const MyProvider = ({ children }) => {
   // DELETE REQ: DELETES Dynamically
   const DeleteMember = useMutation({
     mutationFn: ({ id, category, operation }) => {
-      console.log("Mutation got:", id, category, operation);
+      // console.log("Mutation got:", id, category, operation);
       const fn = API_Map[category]?.[operation];
       if (!fn) throw new Error("Delete function not found");
       return fn(id);
@@ -88,7 +88,7 @@ export const MyProvider = ({ children }) => {
 
   const handleEdit = useCallback(
     (id) => {
-      console.log("Object", id);
+      // console.log("Object", id);
       SetSingleID(id);
       setView("edit");
     },
@@ -97,7 +97,7 @@ export const MyProvider = ({ children }) => {
 
   const handleSubmit = useCallback(
     (category, operation, key, data) => {
-      console.log(key, category, operation, data);
+      // console.log(key, category, operation, data);
       setQuerykey(key);
       CreateMember.mutate({ data, category, operation });
     },
@@ -106,7 +106,7 @@ export const MyProvider = ({ children }) => {
 
   const handleUpdate = useCallback(
     (category, operation, key, data) => {
-      console.log(category, operation, key);
+      // console.log(category, operation, key);
       setQuerykey(key);
       UpdateMember.mutate({ id: singleID._id, data, category, operation });
     },

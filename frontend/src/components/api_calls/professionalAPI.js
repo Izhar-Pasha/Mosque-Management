@@ -25,7 +25,7 @@ export const createProf = async (data) => {
 };
 
 // PUT REQ: UPDATE THE PROFESSIONAL
-export const updateProf = async (id, data) => {
+export const updateProf = async ({ id, data }) => {
   try {
     const res = await API.put(`${profEndpoint}/${id}`, data);
     return res.data;

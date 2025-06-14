@@ -23,7 +23,7 @@ const Navbar = () => {
   };
 
   const handleNavClick = (category, key) => {
-    console.log("cat:", category, "key:", key);
+    // console.log("cat:", category, "key:", key);
 
     setCategory(category);
     setOperation("get");

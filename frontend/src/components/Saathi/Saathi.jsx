@@ -20,17 +20,17 @@ const Saathi = () => {
   const onSubmit = useCallback(
     (data) => {
       if (view === "create") {
-        console.log("thiss create:", data);
+        // console.log("thiss create:", data);
 
         return handleSubmit("Saathi", "create", "saathiKey", data);
       }
       if (view === "edit") {
-        console.log("thiss edit:", data);
+        // console.log("thiss edit:", data);
 
         return handleUpdate("Saathi", "update", "saathiKey", data);
       }
 
-      console.warn("Unknown form view:", view);
+      // console.warn("Unknown form view:", view);
       return;
     },
     [view, handleSubmit, handleUpdate]

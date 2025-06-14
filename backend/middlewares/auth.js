@@ -6,12 +6,12 @@ import { AppError } from "./errorHandler.js";
 export const register = async (req, res, next) => {
   try {
     // const password = "FirstCalipha";
-    const password = "RahziPasha";
+    const password = "Izhar";
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const fixedUser = new User({
-      // userName: "Admin@Abu",
-      userName: "IzharPasha",
+      userName: "Admin",
+      // userName: "IzharPasha",
       password: hashedPassword,
     });
     if (!fixedUser) {
