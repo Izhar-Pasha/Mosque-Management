@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const API = axios.create({
-  baseURL: "http://localhost:3002",
+  baseURL: "https://mosque-management-qb7s.onrender.com",
   withCredentials: true,
 });
 
@@ -23,7 +23,10 @@ export const createSaathi = async (data) => {
   try {
     const res = await API.post(saathiEndpoint, data);
     return res.data;
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 // PUT REQ: UPDATE THE SAATHI
