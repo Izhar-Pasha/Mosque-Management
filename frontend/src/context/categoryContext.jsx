@@ -39,9 +39,9 @@ export const MyProvider = ({ children }) => {
       return fn(data);
     },
     retry: false,
-    onSuccess: () => {
+    onSuccess: (_data, { key }) => {
       toast.success("Successfully create");
-      queryClient.invalidateQueries({ queryKey: [QueryKeys[queryKey]] });
+      queryClient.invalidateQueries({ queryKey: [QueryKeys[key]] });
       setView("list");
     },
     onError: (err) => {
@@ -58,9 +58,9 @@ export const MyProvider = ({ children }) => {
       return fn({ id, data });
     },
     retry: false,
-    onSuccess: () => {
+    onSuccess: (_data, { key }) => {
       toast.success("Successfully updated");
-      queryClient.invalidateQueries({ queryKey: [QueryKeys[queryKey]] });
+      queryClient.invalidateQueries({ queryKey: [QueryKeys[key]] });
       setView("list");
     },
     onError: (err) => {
@@ -77,9 +77,9 @@ export const MyProvider = ({ children }) => {
       return fn(id);
     },
     retry: false,
-    onSuccess: () => {
+    onSuccess: (_data, { key }) => {
       toast.success("Successfully deleted");
-      queryClient.invalidateQueries({ queryKey: [QueryKeys[queryKey]] });
+      queryClient.invalidateQueries({ queryKey: [QueryKeys[key]] });
     },
     onError: (err) => {
       toast.error("Unable to delete", err.message);
@@ -98,8 +98,8 @@ export const MyProvider = ({ children }) => {
   const handleSubmit = useCallback(
     (category, operation, key, data) => {
       // console.log(key, category, operation, data);
-      setQuerykey(key);
-      CreateMember.mutate({ data, category, operation });
+      // setQuerykey(key);
+      CreateMember.mutate({ data, category, operation, key });
     },
     [CreateMember]
   );
@@ -107,8 +107,8 @@ export const MyProvider = ({ children }) => {
   const handleUpdate = useCallback(
     (category, operation, key, data) => {
       // console.log(category, operation, key);
-      setQuerykey(key);
-      UpdateMember.mutate({ id: singleID._id, data, category, operation });
+      // setQuerykey(key);
+      UpdateMember.mutate({ id: singleID._id, data, category, operation, key });
     },
     [singleID, UpdateMember]
   );
@@ -119,11 +119,11 @@ export const MyProvider = ({ children }) => {
 
   const handleDelete = useCallback(
     (category, operation, key, member) => {
-      setQuerykey(key);
-      DeleteMember.mutate({ id: member._id, category, operation });
+      // setQuerykey(key);
+      DeleteMember.mutate({ id: member._id, category, operation, key });
       setView("list");
     },
-    [DeleteMember, setQuerykey]
+    [DeleteMember]
   );
 
   return (
